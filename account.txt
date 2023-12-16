@@ -1,0 +1,12 @@
+NOTE! This passphrase improves security of the recovery seed phrase NOT the
+keypair file itself, which is stored as insecure plain text
+
+BIP39 Passphrase (empty for none):
+
+Wrote new keypair to /Users/ddx/.config/solana/id.json
+========================================================================
+pubkey: 4Y3M7Zf1zWhx4apPJSkgxxcD4SJcbcDQ41MjyAQm4KpJ
+========================================================================
+Save this seed phrase and your BIP39 passphrase to recover your new keypair:
+wealth hat design anchor stool still exact cycle slide false earn notice
+========================================================================
