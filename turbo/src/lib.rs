@@ -1,3 +1,6 @@
+use solana_sdk::pubkey::Pubkey;
+use turbo::solana;
+
 // Define the game configuration using the turbo::cfg! macro
 
 turbo::cfg! {r#"
@@ -35,7 +38,11 @@ turbo::init! {
     }
 }
 
-fn calculate_distance_and_update_state(state: &mut GameState, race_center: (i32, i32), race_id: i32) -> i32 {
+fn calculate_distance_and_update_state(
+    state: &mut GameState,
+    race_center: (i32, i32),
+    race_id: i32,
+) -> i32 {
     let cursor_center_x = state.cursor_x + 5;
     let cursor_center_y = state.cursor_y + 7;
     let dx = cursor_center_x - race_center.0;
@@ -58,13 +65,16 @@ fn check_within_confirm(state: &mut GameState) -> bool {
     let cursor_center_y = state.cursor_y + 7;
     let range_x = (80, 180);
     let range_y = (120, 140);
-    if range_x.0 <= cursor_center_x && cursor_center_x <= range_x.1 && range_y.0 <= cursor_center_y && cursor_center_y <= range_y.1 {
+    if range_x.0 <= cursor_center_x
+        && cursor_center_x <= range_x.1
+        && range_y.0 <= cursor_center_y
+        && cursor_center_y <= range_y.1
+    {
         return true;
     } else {
         return false;
     }
 }
-
 
 // Implement the game loop using the turbo::go! macro
 turbo::go! {
@@ -97,7 +107,7 @@ turbo::go! {
         if (state.cursor_y - 3) >= 0 {
             state.cursor_y -= 3;
         }
-       
+
     }
     if gamepad(0).down.pressed() {
         if (state.cursor_y + 3) <= 144 - 16 {
@@ -108,12 +118,25 @@ turbo::go! {
     // init screen
     if (state.gamestart == false) && (state.gamestage == 0) {
         clear(0x000000FF);
-        let x = 75;
-        let y = 70;
-        let font = Font::M; // try Font::S or Font::L too
-        let color = 0xffffffff;
-        let message = "Press Space to Start";
-        text(x, y, font, color, message);
+
+        text(60, 57, Font::L, 0x003d7dff,"Tale");
+        text(100, 57, Font::L, 0xffffff50,"of");
+        text(125, 57, Font::L, 0xef7c01ff,"Kentridge");
+
+        text(80, 130, Font::M, 0xffffffff, "Press Space to Start");
+
+        sprite!("nus", x = 110, y = 78);
+
+
+        let user_pubkey = solana::user_pubkey();
+        text(10, 10, Font::M, 0xffffffff, &format!("Welcome {} !", user_pubkey));
+
+        let program_id: Pubkey = user_pubkey;
+        let (pda_pubkey, bump_seed) = Pubkey::find_program_address(
+            &[b"seed"],
+            &program_id,
+        );
+        text(10, 20, Font::M, 0xffffffff, &format!("PDA pubkey: {}", pda_pubkey));
     }
 
     // choose race
@@ -143,8 +166,8 @@ turbo::go! {
         } else {
             text(100, 20, Font::M, 0xffffffff, "Pick a Race");
         }
-        
-        if gamepad(0).select.pressed() { 
+
+        if gamepad(0).select.pressed() {
             let royal_center = (20 + 16, 50 + 16);
             let humanoid_center = (110 + 16, 50 + 16);
             let undead_center = (210 + 16, 50 + 16);
@@ -162,9 +185,9 @@ turbo::go! {
                     // Continue with execution...
                     calculate_distance_and_update_state(&mut state, undead_center, 2);
                 }
-            }   
+            }
             sprite!("confirm", x = state.cursor_x, y = state.cursor_y);
-        } else {            
+        } else {
             sprite!("hand", x = state.cursor_x, y = state.cursor_y);
         }
 
@@ -174,7 +197,7 @@ turbo::go! {
     if (state.gamestart == true) && (state.gamestage == 2) {
         // Set the background color
         clear(0x000000FF);
-        
+
         // set background
         for i in 0..8 {
             for j in 0..9 {
@@ -202,14 +225,14 @@ turbo::go! {
         for i in 0..4 {
             sprite!("paper", x = 32 + 46 * i, y = 100);
         }
-        
+
         // set ui
         sprite!("squarepaper", x = 104, y = 0);
-        text!(&format!("Round: {}", state.round), x = 108, y = 10, font = Font::M, color = 0x000000FF); 
+        text!(&format!("Round: {}", state.round), x = 108, y = 10, font = Font::M, color = 0x000000FF);
 
-        if gamepad(0).select.pressed() { 
+        if gamepad(0).select.pressed() {
             sprite!("confirm", x = state.cursor_x, y = state.cursor_y);
-        } else {            
+        } else {
             sprite!("hand", x = state.cursor_x, y = state.cursor_y);
         }
     }
