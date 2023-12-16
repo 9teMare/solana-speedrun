@@ -6,7 +6,10 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-turbo = { version = "*", package = "turbo-genesis-sdk" }
+turbo = { version = "0.3.4-alpha.0", package = "turbo-genesis-sdk", features = ["solana"] }
 
 [lib]
 crate-type = ["cdylib"]
+
+[patch.crates-io]
+cc = { git = "https://github.com/jozanza/cc-rs.git", branch = "wasm-patch" }
