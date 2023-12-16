@@ -1,16 +1,16 @@
 @program_id("F1ipperKF9EfD821ZbbYjS319LXYiBmjhzkkf5a26rC")
 contract tale_of_kentridge {
     event Initilized();
-    event PlayerOnboarded(address playerAddress, string nickname);
+    event PlayerOnboard(address playerAddress, string nickname);
     event PlayerEnqueued(address playerAddress);
     event PlayerDequeued(address playerAddress);
-    event MatchFound(bytes32 roomId, address player1, address player2);
+    event JoinRoom(string roomId, address player1, address player2);
 
     address[] private queue;
 
     mapping(address => Player) private players;
     mapping(address => Card[]) private playerCards;
-    mapping(bytes32 => address[]) private rooms;
+    mapping(string => address[]) private rooms;
 
     struct Player {
         address playerAddress;
@@ -41,19 +41,42 @@ contract tale_of_kentridge {
         emit Initilized();
     }
 
+    function toByte(uint8 _uint8) public pure returns (byte) {
+        if(_uint8 < 10) {
+            return byte(_uint8 + 48);
+        } else {
+            return byte(_uint8 + 87);
+        }
+    }
+
+    function bytes32ToString(bytes32 _bytes32) public pure returns (string memory) {
+        uint8 i = 0;
+        bytes memory bytesArray = new bytes(64);
+        for (i = 0; i < bytesArray.length; i++) {
+
+            uint8 _f = uint8(_bytes32[i/2] & 0x0f);
+            uint8 _l = uint8(_bytes32[i/2] >> 4);
+
+            bytesArray[i] = toByte(_f);
+            i = i + 1;
+            bytesArray[i] = toByte(_l);
+        }
+        return string(bytesArray);
+    }
+
     function generateRoomId(address player1, address player2)
         public
-        pure
-        returns (bytes32)
+        view
+        returns (string)
     {
-        bytes32 roomId = keccak256(abi.encodePacked(player1, player2));
-        return roomId;
+        bytes32 roomId = keccak256(abi.encodePacked(player1, player2, block.timestamp));
+        return bytes32ToString(roomId);
     }
 
     function onboardPlayer(address playerAddress, string nickname) public {
         require(!players[playerAddress].isPlayerExist, "PLAYER_ALREADY_EXIST");
         players[playerAddress] = Player(playerAddress, nickname, true, false, false);
-        emit PlayerOnboarded(playerAddress, nickname);
+        emit PlayerOnboard(playerAddress, nickname);
     }
 
     function getPlayer(address playerAddress) public view returns (Player) {
@@ -80,34 +103,37 @@ contract tale_of_kentridge {
         require(!players[playerAddress].isInGame, "PLAYER_ALREADY_IN_GAME");
         players[playerAddress].isMatching = true;
         queue.push(playerAddress);
-        emit PlayerEnqueued(playerAddress);
-
         if (queue.length == 2) {
-            address player1Address = queue[0];
-            address player2Address = queue[1];
-
-            bytes32 roomId =
-                generateRoomId(player1Address, player2Address);
-
-            rooms[roomId].push(player1Address);
-            rooms[roomId].push(player2Address);
-
-            queue.pop();
-            queue.pop();
-
-            players[player1Address].isInGame = true;
-            players[player2Address].isInGame = true;
-
-            players[player1Address].isMatching = false;
-            players[player2Address].isMatching = false;
-
-            emit MatchFound(
-                roomId, playerAddress, playerAddress
-            );
+            joinRoom();
         }
+        emit PlayerEnqueued(playerAddress);
     }
 
-    function getPlayersInRoom(bytes32 roomId)
+    function joinRoom() public {
+        address player1Address = queue[0];
+        address player2Address = queue[1];
+
+        string roomId =
+            generateRoomId(player1Address, player2Address);
+
+        rooms[roomId].push(player1Address);
+        rooms[roomId].push(player2Address);
+
+        queue.pop();
+        queue.pop();
+
+        players[player1Address].isInGame = true;
+        players[player2Address].isInGame = true;
+
+        players[player1Address].isMatching = false;
+        players[player2Address].isMatching = false;
+
+        emit JoinRoom(
+            roomId, player1Address, player2Address
+        );
+    }
+
+    function getPlayersInRoom(string roomId)
         public
         view
         returns (address[] memory)

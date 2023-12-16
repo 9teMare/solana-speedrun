@@ -4,7 +4,27 @@ import { PublicKey } from "@solana/web3.js";
 
 import { assert, expect } from "chai";
 import { TaleOfKentridge } from "../target/types/tale_of_kentridge";
-import { PlayerLayout } from "../types";
+import { EventData } from "../types";
+
+const getEventLogs = async (program: anchor.Program, pubKey: PublicKey, log?: boolean) => {
+    const signatures = await program.provider.connection
+        .getSignaturesForAddress(pubKey, {}, "confirmed")
+        .then((res) => res.map(({ signature }) => signature));
+
+    log && console.log("confirmed transactions", signatures);
+
+    const parsedTxs = await anchor.getProvider().connection.getParsedTransactions(signatures, "confirmed");
+
+    if (!parsedTxs || parsedTxs?.every((tx) => tx.meta?.err !== null)) {
+        throw new Error("Invalid signature");
+    }
+
+    const eventParser = new anchor.EventParser(program.programId, new anchor.BorshCoder(program.idl));
+
+    const events = parsedTxs.map((tx) => eventParser.parseLogs(tx.meta.logMessages, true).next().value);
+
+    return events;
+};
 
 describe("TaleOfKentridge", () => {
     const provider = anchor.AnchorProvider.env();
@@ -94,6 +114,13 @@ describe("TaleOfKentridge", () => {
     });
 
     it("Test 7 - Get roomId", async () => {
-        console.log(program.idl.events[4].fields[0].index);
+        const events = await getEventLogs(program, dataAccount);
+
+        const { roomId, player1, player2 } = (events as EventData[]).find((event) => event.name === "JoinRoom").data;
+        expect(roomId).to.be.string;
+        const address1 = wallet.publicKey;
+        const address2 = new anchor.web3.PublicKey("Hiy6JSQwKTidbFq5PpeiepThw1vALSFKijYSDCRDDq1L");
+        expect(player1.equals(address1)).to.be.true;
+        expect(player2.equals(address2)).to.be.true;
     });
 });
