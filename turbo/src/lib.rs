@@ -119,13 +119,13 @@ turbo::go! {
     if (state.gamestart == false) && (state.gamestage == 0) {
         clear(0x000000FF);
 
-        text(60, 57, Font::L, 0x003d7dff,"Tale");
-        text(100, 57, Font::L, 0xffffff50,"of");
-        text(125, 57, Font::L, 0xef7c01ff,"Kentridge");
+        text(60, 47, Font::L, 0x003d7dff,"Tale");
+        text(100, 47, Font::L, 0xffffff50,"of");
+        text(125, 47, Font::L, 0xef7c01ff,"Kentridge");
 
         text(80, 130, Font::M, 0xffffffff, "Press Space to Start");
 
-        sprite!("nus", x = 110, y = 78);
+        sprite!("nus", x = 110, y = 72);
 
 
         let user_pubkey = solana::user_pubkey();
