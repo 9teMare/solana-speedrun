@@ -1,9 +1,9 @@
 // Define the game configuration using the turbo::cfg! macro
 turbo::cfg! {r#"
-    name = "Pancake Cat"
+    name = "Tale of kentridge"
     version = "1.0.0"
-    author = "Turbo"
-    description = "Catch falling pancakes!"
+    author = "DDX510"
+    description = "Tale of kentridge"
     [settings]
     resolution = [256, 144]
     [solana]
