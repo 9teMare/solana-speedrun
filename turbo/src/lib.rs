@@ -695,7 +695,7 @@ turbo::go! {
 
         // hp
         text!(&format!("hp:{}", state.curr_hp), x = 110, y = 20, font = Font::M, color = 0x000000FF); 
-        text!(&format!("Ene_hp:{}", state.enemy_hp), x = 110 y = 30, font = Font::M, color = 0x000000FF); 
+        text!(&format!("Ene_hp:{}", state.enemy_hp), x = 110, y = 30, font = Font::M, color = 0x000000FF); 
 
         // cancel button
         if state.curr_chosen.len() > 0 {
