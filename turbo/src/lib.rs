@@ -695,7 +695,7 @@ turbo::go! {
 
         // hp
         text!(&format!("hp:{}", state.curr_hp), x = 110, y = 20, font = Font::M, color = 0x000000FF); 
-        text!(&format!("hp:{}", state.enemy_hp), x = 110, y = 30, font = Font::M, color = 0x000000FF); 
+        text!(&format!("Ene_hp:{}", state.enemy_hp), x = 110 y = 30, font = Font::M, color = 0x000000FF); 
 
         // cancel button
         if state.curr_chosen.len() > 0 {
@@ -713,7 +713,7 @@ turbo::go! {
         text!(&format!("Pass"), x = 2, y = 70, font = Font::M, color = 0x000000FF);
 
         // log
-        text!(&format!("Choice:{}", state.curr_choice), x = 0, y = 0, font = Font::M, color = 0x000000FF);
+        // text!(&format!("Choice:{}", state.curr_choice), x = 0, y = 0, font = Font::M, color = 0x000000FF);
         // text!(&format!("cards:{} chosen {}", state.curr_cards.len(), state.curr_chosen.len()), x = 0, y = 10, font = Font::M, color = 0x000000FF);
         // text!(&format!("Chosen:{} {}", state.curr_chosen_coordinate.0, state.curr_chosen_coordinate.1), x = 0, y = 20, font = Font::M, color = 0x000000FF);
         //text!(&format!("Chosen Mana:{}", state.curr_choosing_mana), x = 0, y = 30, font = Font::M, color = 0x000000FF);
