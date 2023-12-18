@@ -138,6 +138,8 @@ const UNDEAD_DECK: [Card; 30] = [
 turbo::init! {
     struct GameState {
         frame: u32,
+        forcast: Vec<(i32, i32, i32)>,
+        forcast_enemy: Vec<(i32, i32, i32)>,
         gamestart: bool,
         gamestage: u32,
         cursor_x: i32,
@@ -179,6 +181,8 @@ turbo::init! {
     } = {
         Self {
             frame: 0,
+            forcast: Vec::new(),
+            forcast_enemy: Vec::new(),
             gamestart: false,
             gamestage: 0,
             cursor_x: 120,
@@ -420,11 +424,14 @@ fn init_enemy_hand(state: &mut GameState) {
 fn calc_enemy_hand(state: &mut GameState ) {
     let curr_count = state.enemy_curr_cards.len();
     if curr_count < 4 {
-        while state.enemy_curr_cards.len() < curr_count + 1 {
-            let number = (rand() % 30) as i32;
-            if !state.enemy_used_deck_cards.contains(&(number as i32)) {
-                state.enemy_curr_cards.push(number);
-                state.enemy_used_deck_cards.push(number);
+        if state.enemy_used_deck_cards.len() == 30 {
+        } else {
+            while state.enemy_curr_cards.len() < curr_count + 1 {
+                let number = (rand() % 30) as i32;
+                if !state.enemy_used_deck_cards.contains(&(number as i32)) {
+                    state.enemy_curr_cards.push(number);
+                    state.enemy_used_deck_cards.push(number);
+                }
             }
         }
     }
@@ -451,58 +458,115 @@ fn simulate_enemy(state: &mut GameState ) {
 }
 
 fn simulate_fight(state: &mut GameState ) {
+    state.forcast.clear();
+    state.forcast_enemy.clear();
     for i in 0..3 {
         // action
-        let mut new_k = 0;
-        for j in (0..3).rev() {
-            let curr_attack = state.curr_cardboard_elements_attack[j][i];
-            let curr_hp = state.curr_cardboard_elements_hp[j][i];
-            if curr_hp <= 0 || curr_attack < 0 {
-                continue;
-            }
-            for k in 0..3 {
-                if state.enemy_curr_cardboard_elements_hp[k][i] > 0 {
-                    state.enemy_curr_cardboard_elements_hp[k][i] -= curr_attack;
-                    state.curr_cardboard_elements_hp[j][i] -= state.enemy_curr_cardboard_elements_attack[k][i];
-                    if state.enemy_curr_cardboard_elements_hp[k][i] <= 0 {
-                        state.enemy_curr_cardboard_elements[k][i] = -1;
-                    }
-                    if state.curr_cardboard_elements_hp[j][i] <= 0 {
-                        state.curr_cardboard_elements[j][i] = -1;
-                    }
-                    new_k = k + 1;
-                    break;
-                } else {
-                    if k == 2 {
-                        state.enemy_hp -= curr_attack;
-                    }
-                }
-            }
-        }
+        let mut a = 2;
+        let mut b = 0;
 
-        crate::println!("new_k: {}", new_k);
-        for kk in new_k..3 {
-            let enemy_attack = state.enemy_curr_cardboard_elements_attack[kk][i];
-            let enemy_hp = state.enemy_curr_cardboard_elements_hp[kk][i];
-            if enemy_hp <= 0 || enemy_attack < 0 {
-                continue;
+        let mut defense_a = a;
+        let mut defense_b = b;
+
+        let mut init = true;
+     
+        loop {
+            while a >= 0 && state.curr_cardboard_elements[a as usize][i as usize] == -1  {
+                a -= 1;
             }
-            for jj in (0..3).rev () {
-                if state.curr_cardboard_elements_hp[jj][i] > 0 {
-                    state.curr_cardboard_elements_hp[jj][i] -= enemy_attack;
-                    state.enemy_curr_cardboard_elements_hp[kk][i] -= state.curr_cardboard_elements_attack[jj][i];
-                    if state.curr_cardboard_elements_hp[jj][i] <= 0 {
-                        state.curr_cardboard_elements[jj][i] = -1;
-                    }
-                    if state.enemy_curr_cardboard_elements_hp[kk][i] <= 0 {
-                        state.enemy_curr_cardboard_elements[kk][i] = -1;
-                    }
-                    break;
-                } else {
-                    if jj == 0 {
-                        state.curr_hp -= enemy_attack;
+
+            while b <= 2 && state.enemy_curr_cardboard_elements[b as usize][i as usize] == -1 {
+                b += 1;
+            }
+
+            if init == true {
+                defense_a = a;
+                defense_b = b;
+                init = false;
+            }
+            
+            crate::println!("current row {} a {} b {} da {} db{} ",i, a, b, defense_a, defense_b);
+            // perform turn
+
+            if defense_a == -1 && b <= 2 {
+                // no more defend,  enemy attack , you lose hp
+                for j in b..3 {
+                    if state.enemy_curr_cardboard_elements[j as usize][i as usize] != -1 {
+                        crate::println!("you loses {}", state.enemy_curr_cardboard_elements_attack[j as usize][i as usize]);
+                        state.curr_hp -= state.enemy_curr_cardboard_elements_attack[j as usize][i as usize];
                     }
                 }
+                break;
+            }
+            
+            if defense_b == 3 && a >= 0 {
+                // no more defend, you attack , enemy lose hp
+                for j in 0..a+1 {
+                    if state.curr_cardboard_elements[j as usize][i as usize] != -1 {
+                        crate::println!("enemy loses {}", state.curr_cardboard_elements_attack[j as usize][i as usize]);
+                        state.enemy_hp -= state.curr_cardboard_elements_attack[j as usize][i as usize];
+                    }
+                }
+                break;
+            }
+
+            // edge case
+            if a == -1 && b == 3 {
+                crate::println!("next available all empty");
+                break; // next available for both is empty 
+            } 
+
+            if a == -1 && b <= 2 {
+                // enemy attack , you lose hp
+                for j in b..3 {
+                    if state.curr_cardboard_elements[j as usize][i as usize] != -1 {
+                        crate::println!("you loses {}", state.enemy_curr_cardboard_elements_attack[j as usize][i as usize]);
+                        state.curr_hp -= state.enemy_curr_cardboard_elements_attack[j as usize][i as usize];
+                    }
+                }
+                break;
+            }
+
+            if b == 3 && a >= 0{
+                // you attack , enemy lose hp
+                for j in 0..a+1 {
+                    if state.curr_cardboard_elements[j as usize][i as usize] != -1 {
+                        crate::println!("enemy loses {}", state.curr_cardboard_elements_attack[j as usize][i as usize]);
+                        state.enemy_hp -= state.curr_cardboard_elements_attack[j as usize][i as usize];
+                    }
+                }
+                break;
+            }
+
+            if a >= 0 && b <= 2 {
+                // both attack
+                crate::println!("both attack");
+                crate::println!("your card curr hp {} loses {}", state.curr_cardboard_elements_hp[defense_a as usize][i as usize], state.enemy_curr_cardboard_elements_attack[b as usize][i as usize]);
+                crate::println!("ene card curr hp {} loses {}", state.enemy_curr_cardboard_elements_hp[defense_b as usize][i as usize], state.curr_cardboard_elements_attack[a as usize][i as usize]);
+                
+                state.forcast.push((i, defense_a, state.enemy_curr_cardboard_elements_attack[b as usize][i as usize]));
+                state.forcast_enemy.push((i, defense_b, state.curr_cardboard_elements_attack[a as usize][i as usize]));
+
+                state.curr_cardboard_elements_hp[defense_a as usize][i as usize] -= state.enemy_curr_cardboard_elements_attack[b as usize][i as usize];
+                state.enemy_curr_cardboard_elements_hp[defense_b as usize][i as usize] -= state.curr_cardboard_elements_attack[a as usize][i as usize];
+
+                // check if a character is down
+                if state.curr_cardboard_elements_hp[defense_a as usize][i as usize] <= 0 {
+                    state.curr_cardboard_elements[defense_a as usize][i as usize] = -1;
+                    while defense_a >= 0 && state.curr_cardboard_elements[defense_a as usize][i as usize] == -1  {
+                        defense_a -= 1;
+                    }
+                }
+                if state.enemy_curr_cardboard_elements_hp[defense_b as usize][i as usize] <= 0 {
+                    state.enemy_curr_cardboard_elements[defense_b as usize][i as usize] = -1;
+                    defense_b += 1;
+                    while defense_b <= 2 && state.enemy_curr_cardboard_elements[defense_b as usize][i as usize] == -1  {
+                        defense_b += 1;
+                    }
+                }
+
+                a -= 1;
+                b += 1;
             }
         }
     }
@@ -680,13 +744,18 @@ turbo::go! {
                 let curr_count = state.curr_cards.len();
                 if curr_count < 4 {
                     state.deck_remain_cards_count -= (4 - curr_count) as i32;
-                    while state.curr_cards.len() < curr_count + 1 {
-                        let number = (rand() % 30) as i32;
-                        if !state.used_deck_cards.contains(&(number as i32)) {
-                            state.curr_cards.push(number);
-                            state.used_deck_cards.push(number);
+                    if state.deck_remain_cards_count == 0 || state.used_deck_cards.len() == 30 {
+                    
+                    } else {
+                        while state.curr_cards.len() < curr_count + 1 {
+                            let number = (rand() % 30) as i32;
+                            if !state.used_deck_cards.contains(&(number as i32)) {
+                                state.curr_cards.push(number);
+                                state.used_deck_cards.push(number);
+                            }
                         }
                     }
+                   
                 }
                 calc_enemy_hand(&mut state);
             }
@@ -737,6 +806,24 @@ turbo::go! {
                 } else {
                     
                 }
+            }
+        }
+
+        // handle forcast
+        if state.forcast.len() > 0 {
+            for i in 0..4 {
+                for j in 0..state.forcast.len() * 2 {
+                    sprite!("grass", x = 0 + 16 * i, y = 0 + 16 * j as i32);
+                    sprite!("road", x = 16 * 12 + 16 * i, y = 0 + 16 * j as i32);
+                }
+            }
+
+            for i in 0..state.forcast.len() {
+                text!(&format!("Row {} Col {}", state.forcast[i].0 + 1, state.forcast[i].1 + 1), x = 6, y = 10 + 20*i as i32, font = Font::M, color = 0x000000FF); // Render the score
+                text!(&format!("Loses {}", state.forcast[i].2), x = 6, y = 20 + 20 * i as i32, font = Font::M, color = 0xd92c23ff); // Render the score
+                
+                text!(&format!("Row {} Col {}", state.forcast_enemy[i].0 + 1, state.forcast_enemy[i].1 + 1), x = 6 + 12 * 16, y = 10 + 20*i as i32, font = Font::M, color = 0x000000FF); // Render the score
+                text!(&format!("Loses {}", state.forcast_enemy[i].2), x = 6 + 12 * 16, y = 20 + 20 * i as i32, font = Font::M, color = 0xd92c23ff); // Render the score
             }
         }
 
@@ -803,7 +890,7 @@ turbo::go! {
 
                 text!(&format!("{}", curr_card.mana), x = 37 + 46 * i, y = 106, font = Font::M, color = 0x0073adff); // mana
                 text!(&format!("{}", curr_card.hp), x = 37 + 46 * i, y = 138, font = Font::M, color = 0xd92c23ff); // hp
-                text!(&format!("{}", curr_card.attack), x = 15 + 46 * i, y = 138, font = Font::M, color = 0xffffffFF); // attack    
+                text!(&format!("{}", curr_card.attack), x = 15 + 46 * i, y = 138, font = Font::M, color = 0xFF8C00ff); // attack    
                 
                 if state.curr_choice == i  {
                     sprite!("card_attack", x = 18 + 46 * i, y = 90);
@@ -830,14 +917,16 @@ turbo::go! {
         text!(&format!("{}", state.deck_remain_cards_count), x = 236, y = 130, font = Font::M, color = 0x000000FF);
         
         // round
-        sprite!("squarepaper", x = 104, y = 0);
-      
-        text!(&format!("Round:{}", state.round), x = 110, y = 10, font = Font::M, color = 0x000000FF); 
+        sprite!("squarepaper", x = 104 - 24, y = 0);
+        sprite!("squarepaper", x = 104 + 24, y = 0);
+
+        text!(&format!("Round:{}", state.round), x = 110 - 22, y = 10, font = Font::M, color = 0x000000FF); 
 
         // hp
-        text!(&format!("hp:{}", state.curr_hp), x = 110, y = 20, font = Font::M, color = 0x000000FF); 
-        text!(&format!("Ene_hp:{}", state.enemy_hp), x = 110, y = 30, font = Font::M, color = 0x000000FF); 
-
+        text!(&format!("HP:{}", state.curr_hp), x = 110 - 22 , y = 20, font = Font::M, color = 0xd92c23ff); 
+        text!(&format!("Enemy"), x = 110 + 28, y = 10, font = Font::M, color = 0x000000FF); 
+        text!(&format!("HP:{}", state.enemy_hp), x = 110 + 28, y = 20, font = Font::M, color = 0xd92c23ff); 
+            
         // cancel button
         if state.curr_chosen.len() > 0 {
             rect!(w = 34, h = 10, x = 0, y = 80);
@@ -911,9 +1000,9 @@ turbo::go! {
             message = "Victory";
         }
 
-        let x = 80;
+        let x = 100;
         let y = 70;
-        let font = Font::M; // try Font::S or Font::L too
+        let font = Font::L; // try Font::S or Font::L too
         let color = 0xffffffff;
         
         text(x, y, font, color, message);
