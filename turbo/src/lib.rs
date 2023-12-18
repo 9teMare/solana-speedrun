@@ -326,7 +326,7 @@ fn check_card_selection(state: &mut GameState) {
                 state.curr_cardboard_elements[state.curr_chosen_coordinate[i].0 as usize][state.curr_chosen_coordinate[i].1 as usize]= curr_card.id;
                 state.curr_cardboard_elements_hp[state.curr_chosen_coordinate[i].0 as usize][state.curr_chosen_coordinate[i].1 as usize] = curr_card.hp;
                 state.curr_cardboard_elements_attack[state.curr_chosen_coordinate[i].0 as usize][state.curr_chosen_coordinate[i].1 as usize] = curr_card.attack;
-                text!(&format!("curr: {} {}", state.curr_chosen[i], state.curr_cards.len()), x = 0, y = 10 + 10*i as i32, font = Font::M, color = 0xffffffff); // Render the score
+                // text!(&format!("curr: {} {}", state.curr_chosen[i], state.curr_cards.len()), x = 0, y = 10 + 10*i as i32, font = Font::M, color = 0xffffffff); // Render the score
                 // state.curr_cards.remove(state.curr_chosen[i] as usize);
                 state.curr_cards[state.curr_chosen[i] as usize] = -1;
             }
@@ -470,7 +470,7 @@ fn simulate_fight(state: &mut GameState ) {
                     if state.curr_cardboard_elements_hp[j][i] <= 0 {
                         state.curr_cardboard_elements[j][i] = -1;
                     }
-                    new_k = k;
+                    new_k = k + 1;
                     break;
                 } else {
                     if k == 2 {
@@ -480,7 +480,8 @@ fn simulate_fight(state: &mut GameState ) {
             }
         }
 
-        for kk in new_k+1..3 {
+        crate::println!("new_k: {}", new_k);
+        for kk in new_k..3 {
             let enemy_attack = state.enemy_curr_cardboard_elements_attack[kk][i];
             let enemy_hp = state.enemy_curr_cardboard_elements_hp[kk][i];
             if enemy_hp <= 0 || enemy_attack < 0 {
