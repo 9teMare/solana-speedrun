@@ -69,7 +69,71 @@ const ROYAL_DECK: [Card; 30] = [
     Card { id: 29, mana: 6, hp: 1, attack: 6, curr_hp: 0, name: "royal_crusade", race: 0, rarity: 0},
 ];
 
+const HUMANOID_DECK: [Card; 30] = [
+    Card { id: 0, mana: 3, hp: 3, attack: 1, curr_hp: 0, name: "humanoid_archer", race:1, rarity: 0},
+    Card { id: 1, mana: 3, hp: 3, attack: 1, curr_hp: 0, name: "humanoid_archer", race:1, rarity: 0},
+    Card { id: 2, mana: 3, hp: 3, attack: 1, curr_hp: 0, name: "humanoid_archer", race:1, rarity: 0},
+    Card { id: 6, mana: 2, hp: 2, attack: 1, curr_hp: 0, name: "humanoid_assasin", race:1, rarity: 0},
+    Card { id: 7, mana: 2, hp: 2, attack: 1, curr_hp: 0, name: "humanoid_assasin", race:1, rarity: 0},
+    Card { id: 8, mana: 2, hp: 2, attack: 1, curr_hp: 0, name: "humanoid_assasin", race:1, rarity: 0},
+    Card { id: 9, mana: 2, hp: 2, attack: 1, curr_hp: 0, name: "humanoid_fanatic", race:1, rarity: 0},
+    Card { id: 10, mana: 2, hp: 2, attack: 1, curr_hp: 0, name: "humanoid_fanatic", race:1, rarity: 0},
+    Card { id: 11, mana: 2, hp: 2, attack: 1, curr_hp: 0, name: "humanoid_fanatic", race:1, rarity: 0},
+    Card { id: 12, mana: 3, hp: 5, attack: 0, curr_hp: 0, name: "humanoid_grunt", race:1, rarity: 0},
+    Card { id: 13, mana: 3, hp: 5, attack: 0, curr_hp: 0, name: "humanoid_grunt", race:1, rarity: 0},
+    Card { id: 14, mana: 3, hp: 5, attack: 0, curr_hp: 0, name: "humanoid_grunt", race:1, rarity: 0},
+    Card { id: 18, mana: 3, hp: 3, attack: 1, curr_hp: 0, name: "humanoid_occultist", race:1, rarity: 0},
+    Card { id: 19, mana: 3, hp: 3, attack: 1, curr_hp: 0, name: "humanoid_occultist", race:1, rarity: 0},
+    Card { id: 20, mana: 3, hp: 3, attack: 1, curr_hp: 0, name: "humanoid_occultist", race:1, rarity: 0},
+    Card { id: 21, mana: 2, hp: 1, attack: 2, curr_hp: 0, name: "humanoid_pikeman", race:1, rarity: 0},
+    Card { id: 22, mana: 2, hp: 1, attack: 2, curr_hp: 0, name: "humanoid_pikeman", race:1, rarity: 0},
+    Card { id: 23, mana: 2, hp: 1, attack: 2, curr_hp: 0, name: "humanoid_pikeman", race:1, rarity: 0},
+    Card { id: 3, mana: 4, hp: 2, attack: 3, curr_hp: 0, name: "humanoid_tinker", race:1, rarity: 0},
+    Card { id: 4, mana: 4, hp: 2, attack: 3, curr_hp: 0, name: "humanoid_tinker", race:1, rarity: 0},
+    Card { id: 5, mana: 4, hp: 2, attack: 3, curr_hp: 0, name: "humanoid_tinker", race:1, rarity: 0},
+    Card { id: 15, mana: 5, hp: 4, attack: 3, curr_hp: 0, name: "humanoid_wanderer", race:1, rarity: 2},
+    Card { id: 16, mana: 5, hp: 4, attack: 3, curr_hp: 0, name: "humanoid_wanderer", race:1, rarity: 2},
+    Card { id: 17, mana: 5, hp: 4, attack: 3, curr_hp: 0, name: "humanoid_wanderer", race:1, rarity: 2},
+    Card { id: 24, mana: 4, hp: 3, attack: 3, curr_hp: 0, name: "humanoid_fox", race:1, rarity: 2},
+    Card { id: 25, mana: 4, hp: 3, attack: 3, curr_hp: 0, name: "humanoid_fox", race:1, rarity: 2},
+    Card { id: 26, mana: 4, hp: 3, attack: 3, curr_hp: 0, name: "humanoid_fox", race:1, rarity: 2},
+    Card { id: 27, mana: 6, hp: 1, attack: 6, curr_hp: 0, name: "humanoid_wolfrider", race:1, rarity: 0},
+    Card { id: 28, mana: 6, hp: 1, attack: 6, curr_hp: 0, name: "humanoid_wolfrider", race:1, rarity: 0},
+    Card { id: 29, mana: 6, hp: 1, attack: 6, curr_hp: 0, name: "humanoid_wolfrider", race:1, rarity: 0},
+];
 
+const UNDEAD_DECK: [Card; 30] = [
+    Card { id: 0, mana: 3, hp: 3, attack: 1, curr_hp: 0, name: "undead_archer", race:2, rarity: 0},
+    Card { id: 1, mana: 3, hp: 3, attack: 1, curr_hp: 0, name: "undead_archer", race:2, rarity: 0},
+    Card { id: 2, mana: 3, hp: 3, attack: 1, curr_hp: 0, name: "undead_archer", race:2, rarity: 0},
+    Card { id: 6, mana: 2, hp: 2, attack: 1, curr_hp: 0, name: "undead_bones", race:2, rarity: 0},
+    Card { id: 7, mana: 2, hp: 2, attack: 1, curr_hp: 0, name: "undead_bones", race:2, rarity: 0},
+    Card { id: 8, mana: 2, hp: 2, attack: 1, curr_hp: 0, name: "undead_bones", race:2, rarity: 0},
+    Card { id: 9, mana: 2, hp: 2, attack: 1, curr_hp: 0, name: "undead_crawler", race:2, rarity: 0},
+    Card { id: 10, mana: 2, hp: 2, attack: 1, curr_hp: 0, name: "undead_crawler", race:2, rarity: 0},
+    Card { id: 11, mana: 2, hp: 2, attack: 1, curr_hp: 0, name: "undead_crawler", race:2, rarity: 0},
+    Card { id: 12, mana: 3, hp: 5, attack: 0, curr_hp: 0, name: "undead_eye", race:2, rarity: 0},
+    Card { id: 13, mana: 3, hp: 5, attack: 0, curr_hp: 0, name: "undead_eye", race:2, rarity: 0},
+    Card { id: 14, mana: 3, hp: 5, attack: 0, curr_hp: 0, name: "undead_eye", race:2, rarity: 0},
+    Card { id: 18, mana: 3, hp: 3, attack: 1, curr_hp: 0, name: "undead_feader", race:2, rarity: 0},
+    Card { id: 19, mana: 3, hp: 3, attack: 1, curr_hp: 0, name: "undead_feader", race:2, rarity: 0},
+    Card { id: 20, mana: 3, hp: 3, attack: 1, curr_hp: 0, name: "undead_feader", race:2, rarity: 0},
+    Card { id: 21, mana: 2, hp: 1, attack: 2, curr_hp: 0, name: "undead_revenant", race:2, rarity: 0},
+    Card { id: 22, mana: 2, hp: 1, attack: 2, curr_hp: 0, name: "undead_revenant", race:2, rarity: 0},
+    Card { id: 23, mana: 2, hp: 1, attack: 2, curr_hp: 0, name: "undead_revenant", race:2, rarity: 0},
+    Card { id: 3, mana: 4, hp: 2, attack: 3, curr_hp: 0, name: "undead_scarab", race:2, rarity: 0},
+    Card { id: 4, mana: 4, hp: 2, attack: 3, curr_hp: 0, name: "undead_scarab", race:2, rarity: 0},
+    Card { id: 5, mana: 4, hp: 2, attack: 3, curr_hp: 0, name: "undead_scarab", race:2, rarity: 0},
+    Card { id: 15, mana: 5, hp: 4, attack: 3, curr_hp: 0, name: "undead_stumbler", race:2, rarity: 2},
+    Card { id: 16, mana: 5, hp: 4, attack: 3, curr_hp: 0, name: "undead_stumbler", race:2, rarity: 2},
+    Card { id: 17, mana: 5, hp: 4, attack: 3, curr_hp: 0, name: "undead_stumbler", race:2, rarity: 2},
+    Card { id: 24, mana: 4, hp: 3, attack: 3, curr_hp: 0, name: "undead_ghoul", race:2, rarity: 2},
+    Card { id: 25, mana: 4, hp: 3, attack: 3, curr_hp: 0, name: "undead_ghoul", race:2, rarity: 2},
+    Card { id: 26, mana: 4, hp: 3, attack: 3, curr_hp: 0, name: "undead_ghoul", race:2, rarity: 2},
+    Card { id: 27, mana: 6, hp: 1, attack: 6, curr_hp: 0, name: "undead_hand", race:2, rarity: 0},
+    Card { id: 28, mana: 6, hp: 1, attack: 6, curr_hp: 0, name: "undead_hand", race:2, rarity: 0},
+    Card { id: 29, mana: 6, hp: 1, attack: 6, curr_hp: 0, name: "undead_hand", race:2, rarity: 0},
+];
 // Define the game state initialization using the turbo::init! macro
 turbo::init! {
     struct GameState {
@@ -199,7 +263,15 @@ fn determine_can_place(index: i32, state: &mut GameState) {
     if state.curr_chosen.contains(&index) {
         text!("Card is chosen", x = 0, y = 0, font = Font::M, color = 0xd92c23ff);
     } else {
-        let mana = ROYAL_DECK[state.curr_cards[index as usize] as usize].mana;
+        let mut mana = 0;
+        if state.picked_race == 0 {
+            mana = ROYAL_DECK[state.curr_cards[index as usize] as usize].mana;
+        } else if state.picked_race == 1 {
+            mana = HUMANOID_DECK[state.curr_cards[index as usize] as usize].mana;
+        } else if state.picked_race == 2 {
+            mana = UNDEAD_DECK[state.curr_cards[index as usize] as usize].mana;
+        }
+      
         let sum: i32 = state.curr_choosing_mana.iter().sum(); 
         if mana > (state.curr_mana - sum) {
             text!("Not enough mana", x = 0, y = 0, font = Font::M, color = 0xd92c23ff);
@@ -242,7 +314,15 @@ fn check_card_selection(state: &mut GameState) {
         if state.curr_chosen.len() > 0 {
             // attack clicked
             for i in 0..state.curr_chosen.len() {
-                let curr_card = &ROYAL_DECK[state.curr_cards[state.curr_chosen[i] as usize] as usize];
+                let mut curr_card : &Card = &ROYAL_DECK[state.curr_cards[state.curr_chosen[i] as usize] as usize];
+                if state.picked_race == 0 {
+                    curr_card = &ROYAL_DECK[state.curr_cards[state.curr_chosen[i] as usize] as usize];
+                } else if state.picked_race == 1 {
+                    curr_card = &HUMANOID_DECK[state.curr_cards[state.curr_chosen[i] as usize] as usize];
+                } else if state.picked_race == 2 {
+                    curr_card = &UNDEAD_DECK[state.curr_cards[state.curr_chosen[i] as usize] as usize];
+                }
+               
                 state.curr_cardboard_elements[state.curr_chosen_coordinate[i].0 as usize][state.curr_chosen_coordinate[i].1 as usize]= curr_card.id;
                 state.curr_cardboard_elements_hp[state.curr_chosen_coordinate[i].0 as usize][state.curr_chosen_coordinate[i].1 as usize] = curr_card.hp;
                 state.curr_cardboard_elements_attack[state.curr_chosen_coordinate[i].0 as usize][state.curr_chosen_coordinate[i].1 as usize] = curr_card.attack;
@@ -303,7 +383,15 @@ fn set_curr_chosen_coordinate(state: &mut GameState) {
         } else {
             state.curr_chosen.push(state.curr_choice);
             state.curr_chosen_coordinate.push((grid_x, grid_y));
-            let mana = ROYAL_DECK[state.curr_cards[state.curr_choice as usize] as usize].mana;
+            let mut mana = 0;
+            if state.picked_race == 0 {
+                mana = ROYAL_DECK[state.curr_cards[state.curr_choice as usize] as usize].mana;
+            } else if state.picked_race == 1 {
+                mana = HUMANOID_DECK[state.curr_cards[state.curr_choice as usize] as usize].mana;
+            } else if state.picked_race == 2 {
+                mana = UNDEAD_DECK[state.curr_cards[state.curr_choice as usize] as usize].mana;
+            }
+           
             state.curr_choosing_mana.push(mana);
         }
     }
@@ -344,7 +432,7 @@ fn calc_enemy_hand(state: &mut GameState ) {
 
 fn simulate_enemy(state: &mut GameState ) {
     for i in 0..state.enemy_curr_cards.len() {
-        if ROYAL_DECK[state.enemy_curr_cards[i] as usize].mana <= state.enemy_curr_mana {
+        if UNDEAD_DECK[state.enemy_curr_cards[i] as usize].mana <= state.enemy_curr_mana {
             // chose and attack
             let mut random_x = rand() % 3;
             let mut random_y = rand() % 3;
@@ -353,8 +441,8 @@ fn simulate_enemy(state: &mut GameState ) {
                 random_y = rand() % 3;
             }
             state.enemy_curr_cardboard_elements[random_x as usize][random_y as usize] = state.enemy_curr_cards[i];
-            state.enemy_curr_cardboard_elements_hp[random_x as usize][random_y as usize] = ROYAL_DECK[state.enemy_curr_cards[i] as usize].hp;
-            state.enemy_curr_cardboard_elements_attack[random_x as usize][random_y as usize] = ROYAL_DECK[state.enemy_curr_cards[i] as usize].attack;
+            state.enemy_curr_cardboard_elements_hp[random_x as usize][random_y as usize] = UNDEAD_DECK[state.enemy_curr_cards[i] as usize].hp;
+            state.enemy_curr_cardboard_elements_attack[random_x as usize][random_y as usize] = UNDEAD_DECK[state.enemy_curr_cards[i] as usize].attack;
             state.enemy_curr_cards.remove(i);
             break;
         }
@@ -522,11 +610,19 @@ turbo::go! {
             if state.picked_race != -1 {
                 let result = check_within_confirm(&mut state);
                 if result {
-                    state.cursor_x = 120;
-                    state.cursor_y = 80;
+                    if state.picked_race == 0 {
+                        state.cursor_x = 36;
+                        state.cursor_y = 66;
+                    } else if state.picked_race == 1 {
+                        state.cursor_x = 126;
+                        state.cursor_y = 66;
+                    } else if state.picked_race == 2 {
+                        state.cursor_x = 226;
+                        state.cursor_y = 66;
+                    }
                     state.gamestage = 2;
                 }
-            }
+            } 
 
             if calculate_distance_and_update_state(&mut state, royal_center, 0) == -1 {
                 // Continue with execution...
@@ -534,7 +630,8 @@ turbo::go! {
                     // Continue with execution...
                     calculate_distance_and_update_state(&mut state, undead_center, 2);
                 }
-            }
+            }   
+            
             sprite!("confirm", x = state.cursor_x, y = state.cursor_y);
         } else {
             sprite!("hand", x = state.cursor_x, y = state.cursor_y);
@@ -604,7 +701,15 @@ turbo::go! {
             for j in 0..3 {
                 sprite!("grass", x = 80 + 16 * i, y = 48 + 16*j);
                 if state.curr_cardboard_elements[i as usize][j as usize] != -1 {
-                    let card = ROYAL_DECK.iter().find(|&card| card.id == state.curr_cardboard_elements[i as usize][j as usize]);
+                    let mut card = None;
+                    if state.picked_race == 0 {
+                        card = ROYAL_DECK.iter().find(|&card| card.id == state.curr_cardboard_elements[i as usize][j as usize]);
+                    } else if state.picked_race == 1 {
+                        card = HUMANOID_DECK.iter().find(|&card| card.id == state.curr_cardboard_elements[i as usize][j as usize]);
+                    } else if state.picked_race == 2 {
+                        card = UNDEAD_DECK.iter().find(|&card| card.id == state.curr_cardboard_elements[i as usize][j as usize]);
+                    }
+               
                     match card {
                         Some(card) => {
                             sprite!(card.name, x = 80 + 16 * i, y = 48 + 16*j);
@@ -639,7 +744,7 @@ turbo::go! {
             for j in 0..3 {
                 sprite!("road", x = 128 + 16 * i, y = 48 + 16*j);
                 if state.enemy_curr_cardboard_elements[i as usize][j as usize] != -1 {
-                    let enemy_card = &ROYAL_DECK[state.enemy_curr_cardboard_elements[i as usize][j as usize] as usize];
+                    let enemy_card = &UNDEAD_DECK[state.enemy_curr_cardboard_elements[i as usize][j as usize] as usize];
                     sprite!(enemy_card.name, x = 128 + 16 * i, y = 48 + 16*j);
                     text!(&format!("{}", state.enemy_curr_cardboard_elements_attack[i as usize][j as usize]), x = (128 + 16 * i).try_into().unwrap(), y= (48 + 16*j).try_into().unwrap(), font = Font::M, color = 0xFF8C00ff);
                     text!(&format!("{}", state.enemy_curr_cardboard_elements_hp[i as usize][j as usize]), x = (138 + 16 * i).try_into().unwrap(), y= (48 + 16*j).try_into().unwrap(), font = Font::M, color = 0xd92c23ff);
@@ -682,7 +787,16 @@ turbo::go! {
                 sprite!("potion", x = 34 + 46 * i, y = 100);
                 sprite!("card_attack", x = 0 + 46 * i, y = 132);
                 sprite!("potion", x = 34 + 46 * i, y = 132);
-                let curr_card = &ROYAL_DECK[state.curr_cards[i as usize] as usize];
+                
+                let mut curr_card: &Card = &ROYAL_DECK[state.curr_cards[i as usize] as usize];
+                if state.picked_race == 0 {
+                    curr_card = &ROYAL_DECK[state.curr_cards[i as usize] as usize];
+                } else if state.picked_race == 1 {
+                    curr_card = &HUMANOID_DECK[state.curr_cards[i as usize] as usize];
+                } else if state.picked_race == 2 {
+                    curr_card = &UNDEAD_DECK[state.curr_cards[i as usize] as usize];
+                }
+                
             
                 sprite!(curr_card.name, x = 16+ 46 * i, y = 110, fps = fps::FAST);
 
@@ -749,7 +863,15 @@ turbo::go! {
 
             for i in 0..state.curr_chosen.len() {
                 let (x, y) = convert_grid_to_coor(state.curr_chosen_coordinate[i].0, state.curr_chosen_coordinate[i].1);
-                let curr_card = &ROYAL_DECK[state.curr_cards[state.curr_chosen[i] as usize] as usize];
+                let mut curr_card : &Card = &ROYAL_DECK[state.curr_cards[state.curr_chosen[i] as usize] as usize];
+                if state.picked_race == 0 {
+                    curr_card = &ROYAL_DECK[state.curr_cards[state.curr_chosen[i] as usize] as usize];
+                } else if state.picked_race == 1 {
+                    curr_card = &HUMANOID_DECK[state.curr_cards[state.curr_chosen[i] as usize] as usize];
+                } else if state.picked_race == 2 {
+                    curr_card = &UNDEAD_DECK[state.curr_cards[state.curr_chosen[i] as usize] as usize];
+                }
+                
                 sprite!(curr_card.name, x = x, y = y, fps = fps::FAST);
             }
         }       
