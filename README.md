@@ -1,8 +1,9 @@
 # Tale of Kentridge
 
-## Play it here: https://tale-of-kentridge.onrender.com/
-## If you don't have a Solana wallet, we have you covered: https://tale-of-kentridge-offchain.onrender.com/
+### Play it here: https://tale-of-kentridge.onrender.com/
+### If you don't have a Solana wallet, we have you covered: https://tale-of-kentridge-offchain.onrender.com/
 
+</br>
 The game client is built with Turbo, a Rust-based 2D game engine, the smart contract is written in Solidity and compiled to Solana binaries with Solang. We have also integrated Nokiamon, a card in our Humanoid deck, check it out!
 
 Though we envision this game to be FOCG, some technical difficulties are difficult to resolve given the time frame of Solana Speedrun Hackathon.
