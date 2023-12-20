@@ -1,17 +1,5 @@
 import initTurbo, * as turbo from "/pkg/turbo_genesis_host_wasm_bindgen.js";
 
-// Check if the user is on a mobile device
-function isMobile() {
-    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-}
-
-// Example usage
-if (isMobile()) {
-    console.log("User is on a mobile device");
-} else {
-    console.log("User is on a desktop device");
-}
-
 /**************************************************/
 /* CONFIGURATION                                  */
 /**************************************************/
