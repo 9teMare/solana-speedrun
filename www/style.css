@@ -51,7 +51,8 @@ canvas {
   width: 100% !important;
   height: 100% !important;
   object-fit: contain;
-  margin: auto;
+  /* margin: auto; */
+  margin-bottom: 30vh;
   background-color: #202124;
   image-rendering: pixelated;
   outline: none;
@@ -64,7 +65,7 @@ p {
 
 #virtual-gamepad {
   position: absolute;
-  bottom: 20px;
+  bottom: 100px;
   left: 10px;
   right: 10px;
   display: none;
