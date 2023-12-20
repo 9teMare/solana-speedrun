@@ -19,10 +19,6 @@ const WASM_SRC = "/turbo.wasm";
 // The game's resolution
 const RESOLUTION = [256, 144];
 
-if (isMobile()) {
-    RESOLUTION = [144, 256];
-}
-
 // Add sprites to this array
 const SPRITES = [
     "/sprites/card_attack.png",
