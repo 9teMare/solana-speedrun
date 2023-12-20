@@ -5,7 +5,7 @@ import initTurbo, * as turbo from "/pkg/turbo_genesis_host_wasm_bindgen.js";
 /**************************************************/
 
 // Game metadata
-const APP_NAME = "My Turbo Game";
+const APP_NAME = "Tale of Kentridge";
 const APP_VERSION = "0.0.0";
 const APP_AUTHOR = "DDX & 9te";
 const APP_DESCRIPTION = "Not your usual awesome 2D pixel TCG game, made with Turbo";
