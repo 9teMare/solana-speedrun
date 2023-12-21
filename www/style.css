@@ -47,15 +47,28 @@ button {
   background: #202124;
 }
 
-canvas {
-  width: 100% !important;
-  height: 100% !important;
-  object-fit: contain;
-  /* margin: auto; */
-  margin-bottom: 30vh;
-  background-color: #202124;
-  image-rendering: pixelated;
-  outline: none;
+@media only screen and (max-width: 767px) {
+  canvas {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain;
+    margin-bottom: 30vh;
+    background-color: #202124;
+    image-rendering: pixelated;
+    outline: none;
+  }
+}
+
+@media only screen and (min-width: 767px) {
+  canvas {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain;
+    margin: auto;
+    background-color: #202124;
+    image-rendering: pixelated;
+    outline: none;
+  }
 }
 
 p {
