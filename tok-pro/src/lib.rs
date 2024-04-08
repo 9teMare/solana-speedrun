@@ -633,7 +633,7 @@ turbo::go! {
 
         text(80, 130, Font::M, 0xffffffff, "Press Space to Start");
 
-        sprite!("nus", x = 110, y = 72, w = 100, h = 40);
+        sprite!("nus", x = 110, y = 72);
 
 
         // let user_pubkey = solana::user_pubkey();
@@ -675,7 +675,7 @@ turbo::go! {
             text(100, 20, Font::M, 0xffffffff, "Pick a Race");
         }
 
-        if gamepad(0).select.pressed() && state.gamestage == 1 { 
+        if m.left.pressed() && state.gamestage == 1 { 
 
             let royal_center = (20 + 16, 50 + 16);
             let humanoid_center = (110 + 16, 50 + 16);
@@ -791,7 +791,7 @@ turbo::go! {
                
                     match card {
                         Some(card) => {
-                            sprite!(card.name, x = 80 + 16 * i, y = 48 + 16*j);
+                            sprite!(card.name, x = 80 + 16 * i, y = 48 + 16*j, fps = fps::FAST);
                         } ,
                         None => {
                             
@@ -842,7 +842,7 @@ turbo::go! {
                 sprite!("road", x = 128 + 16 * i, y = 48 + 16*j);
                 if state.enemy_curr_cardboard_elements[i as usize][j as usize] != -1 {
                     let enemy_card = &UNDEAD_DECK[state.enemy_curr_cardboard_elements[i as usize][j as usize] as usize];
-                    sprite!(enemy_card.name, x = 128 + 16 * i, y = 48 + 16*j);
+                    sprite!(enemy_card.name, x = 128 + 16 * i, y = 48 + 16*j, w=16, h=16, fps = fps::FAST);
                     text!(&format!("{}", state.enemy_curr_cardboard_elements_attack[i as usize][j as usize]), x = (128 + 16 * i).try_into().unwrap(), y= (48 + 16*j).try_into().unwrap(), font = Font::M, color = 0xFF8C00ff);
                     text!(&format!("{}", state.enemy_curr_cardboard_elements_hp[i as usize][j as usize]), x = (138 + 16 * i).try_into().unwrap(), y= (48 + 16*j).try_into().unwrap(), font = Font::M, color = 0xd92c23ff);
                 }
@@ -990,7 +990,7 @@ turbo::go! {
             state.cursor_y = 123;
         }
 
-        if (state.gamestage == 2) && gamepad(0).select.pressed(){ 
+        if (state.gamestage == 2) && m.left.pressed(){ 
             sprite!("confirm", x = state.cursor_x, y = state.cursor_y);
             check_card_selection(&mut state);
         } else {         
