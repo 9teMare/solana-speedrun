@@ -707,6 +707,8 @@ turbo::go! {
             }   
             
             sprite!("confirm", x = state.cursor_x, y = state.cursor_y);
+        } else if m.left.pressed() && state.gamestage == 1 {
+            sprite!("confirm", x = state.cursor_x, y = state.cursor_y);
         } else {
             sprite!("hand", x = state.cursor_x, y = state.cursor_y);
         }
@@ -990,9 +992,10 @@ turbo::go! {
             state.cursor_y = 123;
         }
 
-        if (state.gamestage == 2) && m.left.just_pressed() || (state.gamestage == 2) && m.left.pressed() {
-            sprite!("confirm", x = state.cursor_x, y = state.cursor_y);
+        if (state.gamestage == 2) && m.left.just_pressed() {
             check_card_selection(&mut state);
+        } else if (state.gamestage == 2) && m.left.pressed() {
+            sprite!("confirm", x = state.cursor_x, y = state.cursor_y);
         } else {         
             sprite!("hand", x = state.cursor_x, y = state.cursor_y);
         }
