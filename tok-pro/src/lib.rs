@@ -675,7 +675,7 @@ turbo::go! {
             text(100, 20, Font::M, 0xffffffff, "Pick a Race");
         }
 
-        if m.left.pressed() && state.gamestage == 1 { 
+        if m.left.just_pressed() && state.gamestage == 1 { 
 
             let royal_center = (20 + 16, 50 + 16);
             let humanoid_center = (110 + 16, 50 + 16);
@@ -990,7 +990,7 @@ turbo::go! {
             state.cursor_y = 123;
         }
 
-        if (state.gamestage == 2) && m.left.pressed(){ 
+        if (state.gamestage == 2) && m.left.just_pressed() || (state.gamestage == 2) && m.left.pressed() {
             sprite!("confirm", x = state.cursor_x, y = state.cursor_y);
             check_card_selection(&mut state);
         } else {         
