@@ -1,5 +1,4 @@
-use solana_sdk::pubkey::Pubkey;
-use turbo::solana;
+use turbo::solana::{self, solana_sdk::pubkey::Pubkey};
 
 // Define the game configuration using the turbo::cfg! macro
 turbo::cfg! {r#"

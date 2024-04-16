@@ -7,10 +7,10 @@ edition = "2021"
 
 [dependencies]
 turbo = { version = "1.1.2", package = "turbo-genesis-sdk", features = ["solana"]}
-solana-sdk = "1.9.1"
 
 [lib]
 crate-type = ["cdylib"]
 
 [patch.crates-io]
-cc = { git = "https://github.com/jozanza/cc-rs.git", branch = "wasm-patch" }
+jobserver = { git = "https://github.com/jozanza/jobserver-rs.git", branch = "main" }
+cc = { git = "https://github.com/jozanza/cc-rs.git", branch = "1.0.94" }
